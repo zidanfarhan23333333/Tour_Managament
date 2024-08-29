@@ -9,16 +9,15 @@ import {
   getFeaturedTour,
   getTourCount,
 } from "../controllers/tourController.js";
+import { verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
 // Define routes
-router.post("/", createTour);
-router.put("/:id", updateTour);
-router.delete("/:id", deleteTour);
-router.get("/:id", getSingleTour); // Route for single tour by ID
-router.get("/", getAllTour); // Route for all tours
-router.get("/search/getTourBySearch", getTourBySearch);
+router.post("/", verifyAdmin, createTour);
+router.put("/:id", verifyAdmin, updateTour);
+router.delete("/:id", verifyAdmin, deleteTour);
+router.get("/:id", getSingleTour);
 router.get("/search/getFeaturedTours", getFeaturedTour);
 router.get("/search/getTourCount", getTourCount);
 

@@ -30,7 +30,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use("/auth", authRoute);
 app.use("/tours", tourRoute);
-app.unsubscribe("/users", userRoute);
+app.use("/users", userRoute);
 
 // Start the server
 app.listen(port, () => {
