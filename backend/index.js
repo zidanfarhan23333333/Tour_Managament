@@ -7,12 +7,17 @@ import cookieParser from "cookie-parser";
 import tourRoute from "./routes/tours.js";
 import userRoute from "./routes/users.js";
 import authRoute from "./routes/auth.js";
+import reviewRoute from "./routes/reviews.js";
+import bookingRoute from "./routes/booking.js";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
+const corsOpstions = {
+  origin: true,
+  credentials: true,
+};
 
-// Database connection
 mongoose.set("strictQuery", false);
 const connect = async () => {
   try {
@@ -20,19 +25,25 @@ const connect = async () => {
     console.log("MongoDB Database connected");
   } catch (err) {
     console.error("MongoDB connection failed:", err.message);
-    process.exit(1); // Exit the process with a failure code
+    process.exit(1);
   }
 };
 
-// Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOpstions));
 app.use(cookieParser());
-app.use("/auth", authRoute);
-app.use("/tours", tourRoute);
-app.use("/users", userRoute);
 
-// Start the server
+app.use((req, res, next) => {
+  console.log(`Request Method: ${req.method}, Request URL: ${req.originalUrl}`);
+  next();
+});
+
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/tours", tourRoute);
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/review", reviewRoute);
+app.use("/api/v1/booking", bookingRoute);
+
 app.listen(port, () => {
   connect();
   console.log(`Server listening on port ${port}`);

@@ -97,9 +97,8 @@ export const getAllUser = async (req, res) => {
 
     res.status(200).json({
       success: true,
-
       message: "Successfully retrieved Users",
-      data: Users,
+      data: users,
     });
   } catch (err) {
     res.status(404).json({

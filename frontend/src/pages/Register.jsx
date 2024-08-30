@@ -1,25 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
-
 import registerImg from "../assets/images/register.png";
 import userIcon from "../assets/images/user.png";
+import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from "../utils/config";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
-    Username: undefined,
-    email: undefined,
-    password: undefined,
+    username: "",
+    email: "",
+    password: "",
   });
+
+  const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleClick = (e) => {
-    e.prevenDefault();
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    dispatch({ type: "LOGIN_START" }); // Optionally show loading state
+
+    try {
+      const res = await fetch(`${BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message);
+      }
+
+      dispatch({ type: "REGISTER_SUCCESS", payload: result.user });
+      navigate("/login");
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err.message }); // Handle error state
+      alert(err.message);
+    }
   };
+
   return (
     <section>
       <Container>
@@ -27,14 +55,14 @@ const Register = () => {
           <Col lg="8" className="m-auto">
             <div className="login__container d-flex justify-content-between">
               <div className="login__img">
-                <img src={registerImg} alt="" />
+                <img src={registerImg} alt="Register" />
               </div>
 
               <div className="login__form">
                 <div className="user">
-                  <img src={userIcon} alt="" />
+                  <img src={userIcon} alt="User Icon" />
                 </div>
-                <h2>Regsiter</h2>
+                <h2>Register</h2>
 
                 <Form onSubmit={handleClick}>
                   <FormGroup>
@@ -58,7 +86,7 @@ const Register = () => {
                   <FormGroup>
                     <input
                       type="password"
-                      placeholder="password"
+                      placeholder="Password"
                       required
                       id="password"
                       onChange={handleChange}
@@ -72,7 +100,7 @@ const Register = () => {
                   </Button>
                 </Form>
                 <p>
-                  Already Have an account? <Link to="/login">Login</Link>
+                  Already have an account? <Link to="/login">Login</Link>
                 </p>
               </div>
             </div>

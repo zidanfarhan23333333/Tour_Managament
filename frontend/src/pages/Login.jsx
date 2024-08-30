@@ -1,24 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Row, Col, Form, FormGroup, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 import loginImg from "../assets/images/login.png";
 import userIcon from "../assets/images/user.png";
 
+import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from "../utils/config";
+
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: undefined,
-    password: undefined,
+    email: "",
+    password: "",
   });
+
+  const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleClick = (e) => {
-    e.prevenDefault();
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    dispatch({ type: "LOGIN_START" });
+
+    try {
+      const res = await fetch(`${BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // penting jika Anda menggunakan cookies untuk otentikasi
+        body: JSON.stringify(credentials),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        throw new Error(result.message);
+      }
+
+      // Jika login sukses, simpan data pengguna ke context dan localStorage
+      dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
+      navigate("/");
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err.message });
+      alert(err.message); // Tampilkan pesan error
+    }
   };
+
   return (
     <section>
       <Container>
@@ -26,12 +59,12 @@ const Login = () => {
           <Col lg="8" className="m-auto">
             <div className="login__container d-flex justify-content-between">
               <div className="login__img">
-                <img src={loginImg} alt="" />
+                <img src={loginImg} alt="Login" />
               </div>
 
               <div className="login__form">
                 <div className="user">
-                  <img src={userIcon} alt="" />
+                  <img src={userIcon} alt="User Icon" />
                 </div>
                 <h2>Login</h2>
 
@@ -48,7 +81,7 @@ const Login = () => {
                   <FormGroup>
                     <input
                       type="password"
-                      placeholder="password"
+                      placeholder="Password"
                       required
                       id="password"
                       onChange={handleChange}
@@ -62,7 +95,7 @@ const Login = () => {
                   </Button>
                 </Form>
                 <p>
-                  Don't Have an account? <Link to="/register">Create</Link>
+                  Don't have an account? <Link to="/register">Create</Link>
                 </p>
               </div>
             </div>
