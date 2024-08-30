@@ -1,19 +1,46 @@
 import React, { useRef } from "react";
-
-import { Col, Container, Form, FormGroup } from "reactstrap";
+import { Col, Form, FormGroup } from "reactstrap";
+import { BASE_URL } from "../utils/config";
+import { useNavigate } from "react-router";
 import "./Searc.bar.css";
+
 const SearchBar = () => {
   const locationRef = useRef("");
   const distanceRef = useRef(0);
   const maxGroupSizeRef = useRef("");
+  const navigate = useNavigate();
 
-  const searchHandler = () => {
+  const searchHandler = async () => {
     const location = locationRef.current.value;
     const distance = distanceRef.current.value;
     const maxGroupSize = maxGroupSizeRef.current.value;
 
     if (location === "" || distance === "" || maxGroupSize === "") {
       return alert("All fields are required");
+    }
+
+    try {
+      const url = `${BASE_URL}/tours/search/getTourBySearch?city=${encodeURIComponent(
+        location
+      )}&distance=${encodeURIComponent(
+        distance
+      )}&maxGroupSize=${encodeURIComponent(maxGroupSize)}`;
+
+      console.log("Navigating to:", url);
+
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      const result = await res.json();
+
+      console.log("Result data:", result.data);
+
+      navigate(`/tours/search`, { state: result.data });
+    } catch (err) {
+      alert(err.message);
     }
   };
 
@@ -57,9 +84,13 @@ const SearchBar = () => {
             </div>
           </FormGroup>
 
-          <span className="search__icon" type="submit" onClick={searchHandler}>
+          <button
+            className="search__icon"
+            type="button"
+            onClick={searchHandler}
+          >
             <i className="ri-search-line"></i>
-          </span>
+          </button>
         </Form>
       </div>
     </Col>

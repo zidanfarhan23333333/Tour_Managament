@@ -1,26 +1,28 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Container, Row, Button } from "reactstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import "./header.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const nav__links = [
-  {
-    path: "/home",
-    display: "Home",
-  },
-  {
-    path: "/about",
-    display: "About",
-  },
-  {
-    path: "/tours",
-    display: "Tours",
-  },
+  { path: "/home", display: "Home" },
+  { path: "/about", display: "About" },
+  { path: "/tours", display: "Tours" },
 ];
 
 const Header = () => {
   const headerRef = useRef(null);
+  const navigate = useNavigate();
+  const { user, dispatch } = useContext(AuthContext);
+
+  console.log("User in Header:", user); // Debugging statement
+
+  const logout = () => {
+    console.log("Logging out...");
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
 
   const stickyHeaderFunc = () => {
     if (
@@ -35,7 +37,6 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", stickyHeaderFunc);
-
     return () => {
       window.removeEventListener("scroll", stickyHeaderFunc);
     };
@@ -46,13 +47,11 @@ const Header = () => {
       <Container>
         <Row>
           <div className="nav__wrapper d-flex align-items-center justify-content-between">
-            {/* logo */}
+            {/* Logo */}
             <div className="logo">
               <img src={logo} alt="Logo" />
             </div>
-            {/* logo selesai */}
-
-            {/* menu start */}
+            {/* Menu */}
             <div className="navigation">
               <ul className="menu d-flex align-items-center gap-5">
                 {nav__links.map((item, index) => (
@@ -68,17 +67,37 @@ const Header = () => {
                   </li>
                 ))}
               </ul>
-              {/* menu end */}
             </div>
-
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-items-center gap-4">
-                <Button className="btn secondary__btn">
-                  <Link to="/login">Login</Link>
-                </Button>
-                <Button className="btn primary__btn">
-                  <Link to="/register">Register</Link>
-                </Button>
+                {user ? (
+                  <>
+                    <h5 className="mb-0">{user.username}</h5>{" "}
+                    {/* Display username */}
+                    <Button className="mb-0" onClick={logout}>
+                      {" "}
+                      {/* Logout button */}
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      tag={Link}
+                      to="/login"
+                      className="btn secondary__btn"
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      tag={Link}
+                      to="/register"
+                      className="btn primary__btn"
+                    >
+                      Register
+                    </Button>
+                  </>
+                )}
               </div>
 
               <span className="mobile__menu">
