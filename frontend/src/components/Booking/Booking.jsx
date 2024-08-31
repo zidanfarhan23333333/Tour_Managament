@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./booking.css";
 import {
   Container,
@@ -8,35 +8,58 @@ import {
   ListGroupItem,
   Button,
 } from "reactstrap";
-
-import { useNavigate } from "react-router-dom"; // Correct import path
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { BASE_URL } from "../../utils/config";
 
 const Booking = ({ tour, avgRating }) => {
-  const [credentials, setCredentials] = useState({
-    userId: "01",
-    userEmail: "sfarkhan48@Gmail.com",
-    fullName: "",
+  const { price, reviews, title } = tour;
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
+  const [booking, setBooking] = useState({
+    userId: user && user._id,
+    userEmail: user && user.email,
+    fullName: title,
+    tourName: title,
     phone: "",
     guestSize: 1,
     bookAt: "",
   });
 
-  const { price, reviews } = tour;
-  const navigate = useNavigate(); // Invoke useNavigate
-
-  const serviceFee = 10;
-  const totalAmount = price * Number(credentials.guestSize) + serviceFee;
-
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setBooking((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  // Send data to the server
-  const handleClick = (e) => {
+  const serviceFee = 10;
+  const totalAmount = price * Number(booking.guestSize) + serviceFee;
+
+  const handleClick = async (e) => {
     e.preventDefault();
-    console.log(credentials);
-    // After successful booking, navigate to the thank-you page
-    navigate("/thank-you");
+    console.log(booking);
+
+    try {
+      if (!user) {
+        return alert("Please Sign in");
+      }
+      const res = await fetch(`${BASE_URL}/booking`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(booking),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        return alert(result.message);
+      }
+      navigate("/thank-you");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -64,6 +87,7 @@ const Booking = ({ tour, avgRating }) => {
               id="fullName"
               required
               onChange={handleChange}
+              value={booking.fullName}
             />
           </FormGroup>
 
@@ -74,10 +98,17 @@ const Booking = ({ tour, avgRating }) => {
               id="phone"
               required
               onChange={handleChange}
+              value={booking.phone}
             />
           </FormGroup>
           <FormGroup>
-            <input type="date" id="bookAt" required onChange={handleChange} />
+            <input
+              type="date"
+              id="bookAt"
+              required
+              onChange={handleChange}
+              value={booking.bookAt}
+            />
           </FormGroup>
           <FormGroup className="d-flex align-items-center gap-3">
             <input
@@ -86,6 +117,7 @@ const Booking = ({ tour, avgRating }) => {
               id="guestSize"
               required
               onChange={handleChange}
+              value={booking.guestSize}
             />
           </FormGroup>
 
@@ -95,17 +127,15 @@ const Booking = ({ tour, avgRating }) => {
         </Form>
       </div>
 
-      {/* booking form end */}
-
       {/* booking bottom */}
       <div className="booking__bottom">
         <ListGroup>
           <ListGroupItem className="border-0 px-0">
             <h5 className="d-flex align-items-center gap-1">
-              ${price} <i className="ri-close-line"></i> {credentials.guestSize}{" "}
-              {credentials.guestSize > 1 ? "people" : "person"}
+              ${price} <i className="ri-close-line"></i> {booking.guestSize}{" "}
+              {booking.guestSize > 1 ? "people" : "person"}
             </h5>
-            <span>${price * Number(credentials.guestSize)}</span>
+            <span>${price * Number(booking.guestSize)}</span>
           </ListGroupItem>
           <ListGroupItem className="border-0 px-0 total">
             <h5>Service charge</h5>
