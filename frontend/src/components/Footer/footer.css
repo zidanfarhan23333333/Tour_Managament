@@ -1,6 +1,8 @@
+/* Default styles for larger screens */
 .footer {
   padding-top: 70px;
   padding-bottom: 30px;
+  text-align: center;
 }
 
 .footer .logo img {
@@ -9,24 +11,24 @@
 }
 
 .social__links i {
-  font-size: 1.5rem; /* Adjust icon size as needed */
-  color: #333; /* Adjust icon color */
+  font-size: 1.5rem;
+  color: #333;
   text-decoration: none;
 }
 
 .footer__link-title {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: #000; /* Adjust title color */
+  color: #000;
 }
 
 .footer__quick-links a {
   text-decoration: none;
-  color: #555; /* Adjust link color */
+  color: #555;
 }
 
 .footer__quick-links a:hover {
-  color: #000; /* Adjust link hover color */
+  color: #000;
 }
 
 .footer__quick-links h6 span i {
@@ -37,4 +39,133 @@
 .copyright {
   color: var(--text-color);
   font-size: 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .footer {
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+
+  .footer .logo img {
+    width: 60%;
+  }
+
+  .social__links i {
+    font-size: 1.4rem;
+  }
+
+  .footer__link-title {
+    font-size: 1.1rem;
+  }
+
+  .footer__quick-links a {
+    font-size: 0.9rem;
+  }
+
+  .footer__quick-links h6 span i {
+    font-size: 1rem;
+  }
+
+  .copyright {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .footer {
+    padding-top: 50px;
+    padding-bottom: 15px;
+  }
+
+  .footer .logo img {
+    width: 70%;
+  }
+
+  .social__links {
+    margin-bottom: 1rem;
+  }
+
+  .social__links i {
+    font-size: 1.3rem;
+  }
+
+  .footer__link-title {
+    font-size: 1rem;
+  }
+
+  .footer__quick-links a {
+    font-size: 0.8rem;
+  }
+
+  .footer__quick-links h6 span i {
+    font-size: 0.9rem;
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding-top: 40px;
+    padding-bottom: 10px;
+  }
+
+  .footer .logo img {
+    width: 80%;
+  }
+
+  .social__links i {
+    font-size: 1.2rem;
+  }
+
+  .footer__link-title {
+    font-size: 0.9rem;
+  }
+
+  .footer__quick-links a {
+    font-size: 0.7rem;
+  }
+
+  .footer__quick-links h6 span i {
+    font-size: 0.8rem;
+  }
+
+  .copyright {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding-top: 30px;
+    padding-bottom: 5px;
+  }
+
+  .footer .logo img {
+    width: 90%;
+  }
+
+  .social__links i {
+    font-size: 1rem;
+  }
+
+  .footer__link-title {
+    font-size: 0.8rem;
+  }
+
+  .footer__quick-links a {
+    font-size: 0.6rem;
+  }
+
+  .footer__quick-links h6 span i {
+    font-size: 0.7rem;
+  }
+
+  .copyright {
+    font-size: 0.6rem;
+  }
 }

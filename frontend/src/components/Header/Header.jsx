@@ -13,6 +13,7 @@ const nav__links = [
 
 const Header = () => {
   const headerRef = useRef(null);
+  const menuRef = useRef(null);
   const navigate = useNavigate();
   const { user, dispatch } = useContext(AuthContext);
 
@@ -42,6 +43,8 @@ const Header = () => {
     };
   }, []);
 
+  const toggleMenu = () => menuRef.current.classList.toggle("active");
+
   return (
     <header className="header" ref={headerRef}>
       <Container>
@@ -49,10 +52,12 @@ const Header = () => {
           <div className="nav__wrapper d-flex align-items-center justify-content-between">
             {/* Logo */}
             <div className="logo">
-              <img src={logo} alt="Logo" />
+              <Link to="/home">
+                <img src={logo} alt="Logo" />
+              </Link>
             </div>
             {/* Menu */}
-            <div className="navigation">
+            <div className="navigation" ref={menuRef}>
               <ul className="menu d-flex align-items-center gap-5">
                 {nav__links.map((item, index) => (
                   <li key={index} className="nav__item">
@@ -75,8 +80,6 @@ const Header = () => {
                     <h5 className="mb-0">{user.username}</h5>{" "}
                     {/* Display username */}
                     <Button className="mb-0" onClick={logout}>
-                      {" "}
-                      {/* Logout button */}
                       Logout
                     </Button>
                   </>
@@ -100,7 +103,7 @@ const Header = () => {
                 )}
               </div>
 
-              <span className="mobile__menu">
+              <span className="mobile__menu" onClick={toggleMenu}>
                 <i className="ri-menu-line"></i>
               </span>
             </div>

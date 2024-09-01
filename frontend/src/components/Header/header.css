@@ -2,6 +2,11 @@
   width: 100%;
   height: 80px;
   line-height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  transition: all 0.3s ease;
 }
 
 .logo img {
@@ -15,9 +20,11 @@
 }
 
 .menu {
+  display: flex;
   margin: 0;
   padding: 0;
   list-style: none;
+  transition: transform 0.3s ease-in-out;
 }
 
 .nav__item a {
@@ -25,11 +32,13 @@
   font-weight: 500;
   color: var(--heading-color);
   font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
 
 .nav__item a:hover {
-  color: inherit;
+  color: var(--secondary-color);
 }
+
 .nav__item a.active__link {
   color: var(--secondary-color);
 }
@@ -38,8 +47,11 @@
   font-size: 1.3rem;
   color: var(--heading-color);
   display: none;
+  cursor: pointer;
+  z-index: 1001; /* Pastikan z-index lebih tinggi */
 }
 
+/* Tombol Navigasi */
 .nav__btns {
   display: flex;
   gap: 10px;
@@ -55,4 +67,63 @@
   left: 0;
   box-shadow: 3px 3px 8px -3px #ddd;
   z-index: 999;
+  transition: all 0.3s ease;
+}
+
+/* Responsive styles */
+
+@media only screen and (max-width: 992px) {
+  .logo img {
+    width: 20%;
+  }
+
+  .navigation {
+    flex-direction: column;
+    align-items: flex-start;
+    background: rgba(0, 0, 0, 0.411);
+    position: fixed; /* Changed to fixed for better control */
+    width: 100%;
+    height: 100%;
+    top: 80px;
+    left: 0;
+    z-index: 999; /* Pastikan di bawah mobile__menu */
+    transition: all 0.3s ease-in-out;
+    transform: translateX(100%);
+  }
+
+  .navigation.active {
+    transform: translateX(0);
+  }
+
+  .menu {
+    flex-direction: column;
+    width: 75%;
+    height: 100vh;
+    background: #fff;
+    justify-content: center;
+    padding-left: 20px;
+    /* Remove fixed positioning and transform here */
+  }
+
+  .menu.active {
+    /* Tidak diperlukan karena .navigation menangani transform */
+  }
+
+  .mobile__menu {
+    display: block;
+  }
+
+  .nav__btns {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .logo img {
+    width: 25%;
+  }
+
+  .nav__item a {
+    font-size: 1rem;
+  }
 }
