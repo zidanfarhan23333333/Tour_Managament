@@ -1,3 +1,4 @@
+/* Default styles for larger screens */
 .booking {
   padding: 2rem;
   border-radius: 0.5rem;
@@ -37,7 +38,7 @@
 .booking__form input {
   width: 100%;
   padding: 0.5rem;
-  border-radius: 0, 5rem;
+  border-radius: 0.5rem; /* Fixed typo here */
   color: var(--heading-color);
   font-size: 1rem;
   border: none;
@@ -78,4 +79,101 @@
   color: var(--heading-color);
   font-weight: 700 !important;
   font-size: 1rem !important;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .booking {
+    padding: 1.5rem;
+    top: 70px;
+  }
+
+  .booking__top h3 {
+    font-size: 1.8rem;
+  }
+
+  .booking__top h3 span {
+    font-size: 1rem;
+  }
+
+  .booking__form input {
+    font-size: 0.95rem;
+  }
+
+  .booking__bottom li h5,
+  .booking__bottom li span {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .booking {
+    padding: 1rem;
+    top: 60px;
+  }
+
+  .booking__top h3 {
+    font-size: 1.6rem;
+  }
+
+  .booking__top h3 span {
+    font-size: 0.9rem;
+  }
+
+  .booking__form input {
+    font-size: 0.9rem;
+  }
+
+  .booking__bottom li h5,
+  .booking__bottom li span {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking {
+    padding: 0.8rem;
+    top: 50px;
+  }
+
+  .booking__top h3 {
+    font-size: 1.4rem;
+  }
+
+  .booking__top h3 span {
+    font-size: 0.8rem;
+  }
+
+  .booking__form input {
+    font-size: 0.85rem;
+  }
+
+  .booking__bottom li h5,
+  .booking__bottom li span {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .booking {
+    padding: 0.5rem;
+    top: 40px;
+  }
+
+  .booking__top h3 {
+    font-size: 1.2rem;
+  }
+
+  .booking__top h3 span {
+    font-size: 0.7rem;
+  }
+
+  .booking__form input {
+    font-size: 0.8rem;
+  }
+
+  .booking__bottom li h5,
+  .booking__bottom li span {
+    font-size: 0.8rem;
+  }
 }

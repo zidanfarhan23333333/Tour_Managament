@@ -1,3 +1,4 @@
+/* Default styles for larger screens */
 .tour__img img {
   width: 100%;
   border-radius: 5px 5px 0 0;
@@ -87,4 +88,145 @@
 
 .booking__btn a:hover {
   color: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .tour__img span {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.4rem;
+  }
+
+  .tour__rating {
+    font-size: 0.85rem;
+  }
+
+  .tour__location {
+    font-size: 0.85rem;
+  }
+
+  .tour_title {
+    font-size: 1rem;
+  }
+
+  .card__bottom h5 {
+    font-size: 1rem;
+  }
+
+  .card__bottom h5 span {
+    font-size: 0.75rem;
+  }
+
+  .booking__btn {
+    padding: 0.2rem 0.4rem;
+  }
+
+  .booking__btn a {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .tour__img span {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.3rem;
+  }
+
+  .tour__rating {
+    font-size: 0.8rem;
+  }
+
+  .tour__location {
+    font-size: 0.8rem;
+  }
+
+  .tour_title {
+    font-size: 0.9rem;
+  }
+
+  .card__bottom h5 {
+    font-size: 0.9rem;
+  }
+
+  .card__bottom h5 span {
+    font-size: 0.7rem;
+  }
+
+  .booking__btn {
+    padding: 0.2rem 0.3rem;
+  }
+
+  .booking__btn a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tour__img span {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.2rem;
+  }
+
+  .tour__rating {
+    font-size: 0.7rem;
+  }
+
+  .tour__location {
+    font-size: 0.7rem;
+  }
+
+  .tour_title {
+    font-size: 0.8rem;
+  }
+
+  .card__bottom h5 {
+    font-size: 0.8rem;
+  }
+
+  .card__bottom h5 span {
+    font-size: 0.6rem;
+  }
+
+  .booking__btn {
+    padding: 0.2rem 0.2rem;
+  }
+
+  .booking__btn a {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .tour__img span {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.2rem;
+  }
+
+  .tour__rating {
+    font-size: 0.6rem;
+  }
+
+  .tour__location {
+    font-size: 0.6rem;
+  }
+
+  .tour_title {
+    font-size: 0.7rem;
+  }
+
+  .card__bottom h5 {
+    font-size: 0.7rem;
+  }
+
+  .card__bottom h5 span {
+    font-size: 0.5rem;
+  }
+
+  .booking__btn {
+    padding: 0.1rem 0.2rem;
+  }
+
+  .booking__btn a {
+    font-size: 0.6rem;
+  }
 }

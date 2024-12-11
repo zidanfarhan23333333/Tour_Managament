@@ -1,11 +1,10 @@
-/* Tour Content Styles */
+/* Default styles for larger screens */
 .tour__content img {
   width: 100%;
   border-radius: 0.5rem;
   margin-bottom: 2.5rem;
 }
 
-/* Tour Information and Reviews Styles */
 .tour_info,
 .tour__reviews {
   margin-bottom: 2rem;
@@ -29,7 +28,6 @@
   color: var(--heading-color);
 }
 
-/* Tour Extra Details */
 .tour__extra-details {
   display: flex;
   align-items: center;
@@ -37,13 +35,11 @@
   margin: 1rem 0 2.5rem;
 }
 
-/* Tour Information Headers */
 .tour_info h5 {
   font-size: 1rem;
   line-height: 30px;
 }
 
-/* Rating Group Styles */
 .rating__group span {
   display: flex;
   align-items: center;
@@ -52,12 +48,10 @@
   cursor: pointer;
 }
 
-/* Tour Reviews Section */
 .tour__reviews h4 {
   margin-bottom: 3rem;
 }
 
-/* Reviews Input Section */
 .reviews__input {
   display: flex;
   align-items: center;
@@ -89,7 +83,6 @@
   cursor: pointer;
 }
 
-/* Review Item Styles */
 .review__item {
   display: flex;
   align-items: center;
@@ -135,8 +128,196 @@
 .rating2 {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Aligns the rating to the right */
+  justify-content: flex-end;
   margin-left: 40rem;
-  font-size: 1.1rem; /* Adjust size as needed */
+  font-size: 1.1rem;
   color: var(--secondary-color);
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .tour_info h2 {
+    font-size: 1.4rem;
+  }
+
+  .tour_info p {
+    font-size: 0.9rem;
+  }
+
+  .tour_info span i {
+    font-size: 1rem;
+  }
+
+  .tour__extra-details {
+    gap: 2rem;
+  }
+
+  .tour_info h5 {
+    font-size: 0.9rem;
+  }
+
+  .rating__group span {
+    font-size: 1rem;
+  }
+
+  .review__item h5 {
+    font-size: 0.9rem;
+  }
+
+  .review__item p {
+    font-size: 0.8rem;
+  }
+
+  .review__item h6 {
+    font-size: 1rem;
+  }
+
+  .review__item span i {
+    font-size: 1.1rem;
+  }
+
+  .rating2 {
+    margin-left: 30rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .tour_info h2 {
+    font-size: 1.3rem;
+  }
+
+  .tour_info p {
+    font-size: 0.85rem;
+  }
+
+  .tour_info span i {
+    font-size: 0.9rem;
+  }
+
+  .tour__extra-details {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .tour_info h5 {
+    font-size: 0.8rem;
+  }
+
+  .rating__group span {
+    font-size: 0.9rem;
+  }
+
+  .review__item h5 {
+    font-size: 0.85rem;
+  }
+
+  .review__item p {
+    font-size: 0.75rem;
+  }
+
+  .review__item h6 {
+    font-size: 0.9rem;
+  }
+
+  .review__item span i {
+    font-size: 1rem;
+  }
+
+  .rating2 {
+    margin-left: 20rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tour_info h2 {
+    font-size: 1.2rem;
+  }
+
+  .tour_info p {
+    font-size: 0.8rem;
+  }
+
+  .tour_info span i {
+    font-size: 0.8rem;
+  }
+
+  .tour__extra-details {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tour_info h5 {
+    font-size: 0.7rem;
+  }
+
+  .rating__group span {
+    font-size: 0.8rem;
+  }
+
+  .review__item h5 {
+    font-size: 0.75rem;
+  }
+
+  .review__item p {
+    font-size: 0.7rem;
+  }
+
+  .review__item h6 {
+    font-size: 0.8rem;
+  }
+
+  .review__item span i {
+    font-size: 0.9rem;
+  }
+
+  .rating2 {
+    margin-left: 10rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .tour_info h2 {
+    font-size: 1.1rem;
+  }
+
+  .tour_info p {
+    font-size: 0.7rem;
+  }
+
+  .tour_info span i {
+    font-size: 0.7rem;
+  }
+
+  .tour__extra-details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tour_info h5 {
+    font-size: 0.6rem;
+  }
+
+  .rating__group span {
+    font-size: 0.7rem;
+  }
+
+  .review__item h5 {
+    font-size: 0.6rem;
+  }
+
+  .review__item p {
+    font-size: 0.6rem;
+  }
+
+  .review__item h6 {
+    font-size: 0.7rem;
+  }
+
+  .review__item span i {
+    font-size: 0.8rem;
+  }
+
+  .rating2 {
+    margin-left: 0;
+  }
 }
